@@ -1,0 +1,101 @@
+:root {
+	--max-width: 85vw;
+	--navbar-height: 3rem;
+	--blue-color: hsl(217, 71%, 53%);
+	--light-bg: hsl(240, 8%, 98%);
+	--light-border: 1px solid hsl(240, 8%, 90%);
+	--dark-bg: hsl(240, 8%, 93%);
+	--dark-border: 1px solid hsl(240, 8%, 70%);
+	--modal-bg: rgba(33, 33, 33, 0.8);
+	--shadow: 0 1px 2px rgba(10,10,10,.1);
+}
+
+@media only screen and (max-width: 700px) {
+	:root {
+		--max-width: 95vw;
+	}
+}
+
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	overflow: hidden;
+	color: #333;
+	margin: 0;
+	padding: 8px;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+div {
+	color: #333;
+}
+
+a {
+	color: rgb(0,100,200);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: rgb(0,80,160);
+}
+
+label {
+	display: block;
+}
+
+input, button, select, textarea {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.4em;
+	margin: 0 0 0.5em 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+
+input:disabled {
+	color: #ccc;
+}
+
+input[type="range"] {
+	height: 0;
+	max-width: 100%;
+}
+
+button {
+	background-color: #f4f4f4;
+	outline: none;
+}
+
+button:active {
+	background-color: #ddd;
+}
+
+button:focus {
+	border-color: #666;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 2rem;
+}
+
+h2 {
+	font-size: 1.75rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+}
