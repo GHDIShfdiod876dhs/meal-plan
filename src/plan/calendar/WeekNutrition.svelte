@@ -66,7 +66,7 @@
   .week-nutrition {
     position: fixed;
     bottom: 0;
-    left: calc((100vw - var(--max-width)) / 2);
+    /* left: calc((100vw - var(--max-width)) / 2); */
     width: var(--max-width);
   }
   .week-nutrition-inner {

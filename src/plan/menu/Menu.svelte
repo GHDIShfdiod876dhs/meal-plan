@@ -96,7 +96,7 @@
   #menu {
     list-style-type: none;
     margin-left: 0;
-    overflow: scroll;
+    overflow-y: scroll;
     height: calc(45vh - var(--navbar-height) - 3rem - 1rem);
     border-radius: 2px;
   }
