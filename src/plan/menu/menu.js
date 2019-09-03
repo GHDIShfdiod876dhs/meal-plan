@@ -21,7 +21,8 @@ function createMenu() {
       s[recipeIdx].servings = newServings + (s[recipeIdx].servings || 0);
       return s;
     }),
-    add: (recipe) => update(s => [...s, recipe])
+    add: (recipe) => update(s => [...s, recipe]),
+    delete: (id) => update(s => s.filter(recipe => id !== recipe.id)),
   };
 };
 

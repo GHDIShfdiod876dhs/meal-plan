@@ -29,11 +29,10 @@
         menu.updateRecipe(change.doc.id, change.doc.data());
         // console.log('Modified menu item:', change.doc.data());
       }
-      // todo?
-      // if (change.type === 'removed') {
-      //   ingredients = ingredients.filter(i => i.id !== change.doc.id)
-      //   // console.log('Removed menu item:', change.doc.data());
-      // }
+      if (change.type === 'removed') {
+        menu.delete(change.doc.id);
+        // console.log('Removed menu item:', change.doc.data());
+      }
     })
   });
 

@@ -10,9 +10,12 @@
   let invalid = false;
   let input;
   let servingsPerRecipe = 1;
+
   getRecipeRef(params).onSnapshot(doc => {
-    const servings = doc.data().servingsPerRecipe;
-    servingsPerRecipe = servings === undefined ? 1 : servings;
+    if (doc.exists) {
+      const servings = doc.data().servingsPerRecipe;
+      servingsPerRecipe = servings === undefined ? 1 : servings;
+    }
   })
 
   function handleSubmit(e) {

@@ -3,13 +3,16 @@
   import { capitalize } from '../scripts/utils.js';
   import { db, auth } from '../scripts/firebase';
   import { push } from 'svelte-spa-router';
+  import Spinner from '../components/Spinner.svelte';
 
   const { uid } = auth.currentUser;
   let input;
   let invalid = false;
+  let loading = false;
 
   function handleSubmit(e) {
     if (input.value) {
+      loading = true;
       const name = capitalize(input.value);
       db.collection('recipes')
       .where('uid', '==', uid)
@@ -28,7 +31,10 @@
             servingsPerRecipe: 1,
             created: Date.now()
           })
-          .then(res => push(`/recipe/${res.id}`));
+          .then(res => {
+            push(`/recipe/${res.id}`);
+            loading = false;
+          });
         }
       });
     }
@@ -47,8 +53,8 @@
         <input bind:this={input} class='input' type='text' placeholder='Recipe name'>
       </div>
       <div class='control'>
-        <button class='button' type='submit'>
-          Save
+        <button id='submit' class='button' type='submit'>
+          {#if loading}<Spinner />{:else}Save{/if}
         </button>
       </div>
     </div>
@@ -63,6 +69,9 @@
   .name {
     display: flex;
     justify-content: center;   
+  }
+  #submit {
+    width: 3.75rem;
   }
   .invalid {
     color: red;
