@@ -1,16 +1,21 @@
 <script>
+  import { onMount } from 'svelte';
   import { capitalize } from '../scripts/utils.js';
 
   export let tabs;
+  export let setCurrentTab;
 
-  let active = tabs[0];
+  let active;
   let indicator;
 
   async function setActive(idx) {
     active = tabs[idx];
+    setCurrentTab(active);
     const offset = indicator.getBoundingClientRect().width;
     indicator.style.transform = `translateX(${offset * idx}px)`;
   }
+
+  onMount(() => setActive(0));
 </script>
 
 
@@ -83,7 +88,7 @@
     );
     width: 100%;
     height: var(--indicator-weight);
-    z-index: 10;
+    z-index: 2;
     background: linear-gradient(
       to left,
       transparent,

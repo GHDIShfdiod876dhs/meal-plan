@@ -1,8 +1,9 @@
 <script>
   import { fade, slide } from 'svelte/transition';
-  import Pane from '../../components/Pane.svelte';
+  import Pane from '../../../components/Pane.svelte';
 
   export let addName;
+  export let changeName;
 
   let menuVisible = false;
   const toggleMenu = () => menuVisible = !menuVisible;
@@ -28,6 +29,7 @@
       <Pane theme={'LIGHT'}>
         <div class='menu' on:click|stopPropagation={toggleMenu}>
           <span>todo: clear calendar</span>
+          <span on:click={changeName}>Change name</span>
           <span>todo: delete name</span>
           <span on:click={addName}>Add name</span>
         </div>
@@ -43,6 +45,7 @@
     --toggle-right: calc((100vw - var(--max-width)) / 2);
     --toggle-padding: 0.25rem;
     --ellipsis-height: 1rem;
+    z-index: 100;
   }
   .toggle {
     background: var(--light-bg);
