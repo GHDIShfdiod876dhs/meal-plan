@@ -2,7 +2,8 @@
   import { setContext } from 'svelte';
   import { auth } from './scripts/firebase.js';
   import { user } from './scripts/user.js';
-	import Router from 'svelte-spa-router';
+  import Router from 'svelte-spa-router';
+  import Landing from './components/Landing.svelte';
   import Modal from './components/Modal.svelte';
   import Navbar from './nav/Navbar.svelte';
   import CreateRecipe from './recipe/CreateRecipe.svelte';
@@ -33,8 +34,11 @@
 </script>
 
 
-<Navbar />
+{#if !$user}
+  <Landing />
+{/if}
 {#if $user && !user.isLoading()}
+  <Navbar />
   <Router {routes} />
 {/if}
 

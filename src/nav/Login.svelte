@@ -1,15 +1,16 @@
 <script>
-  import { auth, googleProvider } from '../scripts/firebase.js';
+  import { auth } from '../scripts/firebase.js';
+  // import { auth, googleProvider } from '../scripts/firebase.js';
   import { user } from '../scripts/user.js';
   import Spinner from '../components/Spinner.svelte';
   import Profile from './Profile.svelte';
   import Navbar from './Navbar.svelte';
   import LoggedInLinks from './LoggedInLinks.svelte';
 
-  function login() {
-    user.setToLoading();
-    auth.signInWithPopup(googleProvider);
-  }
+  // function login() {
+  //   user.setToLoading();
+  //   auth.signInWithPopup(googleProvider);
+  // }
 
   const logout = () => auth.signOut();
 </script>
@@ -28,8 +29,8 @@
     </div>
     <span id='logout' on:click={logout}>Logout</span>
   </div>
-{:else}
-  <img on:click={login} src='btn_google_signin_light_normal_web.png' alt='sign in with Google'>
+<!-- {:else}
+  <img on:click={login} src='btn_google_signin_light_normal_web.png' alt='sign in with Google'> -->
 {/if}
 
 
