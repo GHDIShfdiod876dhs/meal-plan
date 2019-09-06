@@ -16,6 +16,7 @@
   let data = [];
   let loading = false;
   let invalidAmountNumber = false;
+  let noUnit = false;
   let invalidAmountUnit = false;
   let invalidAmountIngredient = null;
 
@@ -85,7 +86,13 @@
       invalidAmountIngredient = ingredient;
       return;
     }
-    const unit = amount.match(/[a-zA-Z]+(?: [a-zA-Z]+)?/)[0].toLowerCase();
+    const unitMatches = amount.match(/[a-zA-Z]+(?: [a-zA-Z]+)?/);
+    if (!unitMatches) {
+      noUnit = true;
+      invalidAmountIngredient = ingredient;
+      return;
+    }
+    const unit = unitMatches[0].toLowerCase();
     const cupIdx = ingredient.alt_measures.findIndex(m => m.measure.toLowerCase() === 'cup');
     let unitIdx = ingredient.alt_measures.findIndex(m => m.measure === unit);
     if (unitIdx === -1) {
@@ -104,6 +111,7 @@
     loading = true;
     const cb = () => loading = false;
     amount = `${number} ${unit}`;
+    noUnit = false;
     invalidAmountNumber = false;
     invalidAmountUnit = false;
     invalidAmountIngredient = null;
@@ -127,7 +135,6 @@
           class='input amount-input'
           placeholder='Amt.'
           bind:value={amount}>
-        <!-- todo: prettify unit -->
       </div>
 
       <div class="control">
@@ -183,6 +190,13 @@
 
     <div class='invalid'>
       {#if invalidAmountNumber}Amount must contain a number{/if}
+      {#if noUnit}Please provide a unit of measure. Consider, for example:
+        <ul>
+          {#each invalidAmountIngredient.alt_measures as alt_measure}
+            <li>{alt_measure.measure}</li>
+          {/each}
+        </ul>
+      {/if}
       {#if invalidAmountUnit}
         Sorry, the database doesn't have an entry for "{invalidAmountIngredient.food_name}" with the unit "{invalidAmountUnit}." Consider using:
         <ul>
