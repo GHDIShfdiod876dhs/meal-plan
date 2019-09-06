@@ -3,7 +3,11 @@ import { user } from './user.js';
 
 
 let uid;
-user.subscribe(s => uid = s.uid);
+user.subscribe(s => {
+  if (s !== null) {
+    uid = s.uid
+  }
+});
 
 export const updateShoppingList = ({ id, servings }, factor = 1) =>
   db.collection('recipes')
