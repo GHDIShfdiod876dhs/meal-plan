@@ -32,7 +32,7 @@
         <a href='/create_recipe' use:link use:active>New Recipe</a>
         <a href='/' use:link use:active={'/'}>Plan</a>
         <a href='/shop' use:link use:active>Shop</a>
-        <a href='/prep' use:link use:active>Prep</a>
+        <!-- <a href='/prep' use:link use:active>Prep</a> -->
         <span on:click={logout}>Logout</span>
       </div>
     </Pane>
