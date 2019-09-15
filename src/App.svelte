@@ -36,10 +36,11 @@
 
 {#if !$user}
   <Landing />
-{/if}
-{#if $user && !user.isLoading()}
+{:else}
   <Navbar />
-  <Router {routes} />
+  {#if !user.isLoading()}
+    <Router {routes} />
+  {/if}
 {/if}
 
 {#if modalOpen}
