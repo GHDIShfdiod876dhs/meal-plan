@@ -19,7 +19,7 @@ export const updateShoppingList = ({ id, servings }, factor = 1) =>
         console.log('document:', doc.data());
         const { ingredient, amount } = doc.data();
         const total = +(parseFloat(amount) * servings * factor).toFixed(2);
-        
+
         db.collection('shopping lists')
           .doc(uid)
           .collection('items')
@@ -29,7 +29,7 @@ export const updateShoppingList = ({ id, servings }, factor = 1) =>
             need: FieldValue.increment(total),
             have: FieldValue.increment(0),
             total: FieldValue.increment(total),
-            unit: amount.match(/^(?:\d*\.?\d{0,2}\s*)(\D+)$/)[1]
+            unit: amount.match(/^(?:\d*\.?\d{0,2}\s*)(.+)$/)[1]
           },
           { merge: true });
       })
