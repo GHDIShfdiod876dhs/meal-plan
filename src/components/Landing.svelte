@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition';
   import { auth, googleProvider } from '../scripts/firebase.js';
   import { user } from '../scripts/user.js';
   import img from '../static/julian-hanslmaier-bWg-BeVJPG4-unsplash.jpg';
@@ -10,7 +11,9 @@
 </script>
 
 
-<div class='background'>
+<div
+  class='background'
+  out:fade={{ duration: 300 }}>
   <div class='overlay'>
     <div class='sign-in'>
       <h1>Take control of how you fuel your body</h1>
@@ -31,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: 
+    background-image:
       linear-gradient(rgba(0, 0, 0, 0.3), rgba(150, 150, 100, 0.3)),
       url('../static/julian-hanslmaier-bWg-BeVJPG4-unsplash.jpg');
     background-size: cover;
