@@ -76,6 +76,11 @@
   }
 
   function handleSubmit() {
+    noUnit = false;
+    invalidAmountNumber = false;
+    invalidAmountUnit = false;
+    invalidAmountIngredient = null;
+
     if (!ingredient) {
       return;
     }
@@ -86,13 +91,14 @@
       invalidAmountIngredient = ingredient;
       return;
     }
-    const unitMatches = amount.match(/[a-zA-Z]+(?: [a-zA-Z]+)?/);
+    const unitMatches = amount.match(/[a-zA-Z]+.*$/);
+    // const unitMatches = amount.match(/[a-zA-Z]+(?: [a-zA-Z]+)?/);
     if (!unitMatches) {
       noUnit = true;
       invalidAmountIngredient = ingredient;
       return;
     }
-    const unit = unitMatches[0].toLowerCase();
+    let unit = unitMatches[0].toLowerCase();
     const cupIdx = ingredient.alt_measures.findIndex(m => m.measure.toLowerCase() === 'cup');
     let unitIdx = ingredient.alt_measures.findIndex(m => m.measure === unit);
     if (unitIdx === -1) {
@@ -108,13 +114,14 @@
         return;
     }
 
+    if (unitIdx !== -1) {
+      unit = ingredient.alt_measures[unitIdx].measure;
+    }
+
     loading = true;
     const cb = () => loading = false;
     amount = `${number} ${unit}`;
-    noUnit = false;
-    invalidAmountNumber = false;
-    invalidAmountUnit = false;
-    invalidAmountIngredient = null;
+
     if (idx !== null) {
       editIngredient({ id, amount, ingredient, prep }, cb);
     } else {
@@ -133,17 +140,19 @@
         <input
           type='text'
           class='input amount-input'
+          class:is-invalid={invalidAmountNumber ||noUnit ||invalidAmountUnit}
           placeholder='Amt.'
           bind:value={amount}>
       </div>
 
       <div class="control">
       {#if ingredient}
-        <div
-          class='ingredient-input input'
-          on:click={changeIngredient}>
-          {ingredient.food_name}
-        </div>
+        <input
+          type='text'
+          class='input ingredient-input'
+          on:click={changeIngredient}
+          value={ingredient.food_name}
+        />
       {:else}
         <input
           type='text'
@@ -190,7 +199,7 @@
 
     <div class='invalid'>
       {#if invalidAmountNumber}Amount must contain a number{/if}
-      {#if noUnit}Please provide a unit of measure. Consider, for example:
+      {#if noUnit}Amount must contain a unit. Consider, for example:
         <ul>
           {#each invalidAmountIngredient.alt_measures as alt_measure}
             <li>{alt_measure.measure}</li>
@@ -238,11 +247,6 @@
     border-radius: 0;
     flex-grow: 5;
   }
-  div.ingredient-input {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
   .list {
     position: absolute;
     top: 5rem;
@@ -261,6 +265,11 @@
   }
   .button {
     width: 3.75rem;
+  }
+  input.is-invalid {
+    border-color: red;
+    box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+    z-index: 2;
   }
   .invalid {
     color: red;
