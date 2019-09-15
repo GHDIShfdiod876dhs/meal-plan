@@ -5,7 +5,7 @@
   import WeekNutrition from './WeekNutrition.svelte';
 
   export let data;
-  
+
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const meals = (() => {
@@ -64,7 +64,16 @@
     overflow-y: hidden;
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1200px) {
+    .calendar {
+      grid-template-columns: repeat(7, calc(var(--max-width) / 2));
+      width: var(--max-width);
+      max-width: var(--max-width);
+      scroll-snap-type: x mandatory;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
     .calendar {
       grid-template-columns: repeat(7, var(--max-width));
       width: var(--max-width);

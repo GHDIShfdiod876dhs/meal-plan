@@ -30,7 +30,7 @@
     db.collection('shopping lists')
     .doc($user.uid)
     .collection('items');
-      
+
   dayRef.collection('meals').onSnapshot(snapshot =>
     snapshot.docChanges().forEach(change => {
       if (change.type === 'added') {
@@ -113,7 +113,7 @@
   on:dragover|preventDefault
   on:dragenter|preventDefault
   on:drop={handleDrop}>
-  
+
   <Pane>
     <strong>{day}</strong>
     <div class="day-scroll-wrapper">
@@ -153,7 +153,7 @@
     margin: -0.25rem;
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1200px) {
     .day {
       scroll-snap-align: start;
     }
